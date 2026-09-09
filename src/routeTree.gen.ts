@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ScreeningRouteImport } from './routes/screening'
 import { Route as ViewerRouteImport } from './routes/viewer'
+import { Route as ReportsRouteImport } from './routes/reports.'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +32,11 @@ const HistoryRoute = HistoryRouteImport.update({
   path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScreeningRoute = ScreeningRouteImport.update({
   id: '/screening',
   path: '/screening',
@@ -40,43 +47,78 @@ const ViewerRoute = ViewerRouteImport.update({
   path: '/viewer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analysis': typeof AnalysisRoute
   '/history': typeof HistoryRoute
+  '/login': typeof LoginRoute
   '/screening': typeof ScreeningRoute
   '/viewer': typeof ViewerRoute
+  '/reports/': typeof ReportsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analysis': typeof AnalysisRoute
   '/history': typeof HistoryRoute
+  '/login': typeof LoginRoute
   '/screening': typeof ScreeningRoute
   '/viewer': typeof ViewerRoute
+  '/reports': typeof ReportsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analysis': typeof AnalysisRoute
   '/history': typeof HistoryRoute
+  '/login': typeof LoginRoute
   '/screening': typeof ScreeningRoute
   '/viewer': typeof ViewerRoute
+  '/reports/': typeof ReportsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/analysis' | '/history' | '/screening' | '/viewer'
+  fullPaths:
+    | '/'
+    | '/analysis'
+    | '/history'
+    | '/login'
+    | '/screening'
+    | '/viewer'
+    | '/reports/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/analysis' | '/history' | '/screening' | '/viewer'
-  id: '__root__' | '/' | '/analysis' | '/history' | '/screening' | '/viewer'
+  to:
+    | '/'
+    | '/analysis'
+    | '/history'
+    | '/login'
+    | '/screening'
+    | '/viewer'
+    | '/reports'
+  id:
+    | '__root__'
+    | '/'
+    | '/analysis'
+    | '/history'
+    | '/login'
+    | '/screening'
+    | '/viewer'
+    | '/reports/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalysisRoute: typeof AnalysisRoute
   HistoryRoute: typeof HistoryRoute
+  LoginRoute: typeof LoginRoute
   ScreeningRoute: typeof ScreeningRoute
   ViewerRoute: typeof ViewerRoute
+  ReportsRoute: typeof ReportsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/screening': {
       id: '/screening'
       path: '/screening'
@@ -116,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ViewerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports/': {
+      id: '/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -123,8 +179,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalysisRoute: AnalysisRoute,
   HistoryRoute: HistoryRoute,
+  LoginRoute: LoginRoute,
   ScreeningRoute: ScreeningRoute,
   ViewerRoute: ViewerRoute,
+  ReportsRoute: ReportsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
